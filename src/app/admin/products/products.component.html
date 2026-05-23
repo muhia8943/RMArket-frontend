@@ -1,0 +1,361 @@
+<div class="admin-layout">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+
+    <div>
+
+      <h2 class="logo">
+        RMArket
+      </h2>
+
+      <nav class="sidebar-nav">
+
+        <a
+          routerLink="/admin"
+          routerLinkActive="active"
+        >
+          📊 Dashboard
+        </a>
+
+        <a
+          routerLink="/products"
+          routerLinkActive="active"
+        >
+          📦 Products
+        </a>
+
+        <a
+          routerLink="/categories"
+          routerLinkActive="active"
+        >
+          🗂 Categories
+        </a>
+
+        <a
+          routerLink="/orders"
+          routerLinkActive="active"
+        >
+          🧾 Orders
+        </a>
+
+        <a
+          routerLink="/users"
+          routerLinkActive="active"
+        >
+          👥 Users
+        </a>
+
+        <a
+          routerLink="/settings"
+          routerLinkActive="active"
+        >
+          ⚙ Settings
+        </a>
+
+      </nav>
+
+    </div>
+
+    <a
+      routerLink="/"
+      class="logout-btn"
+    >
+      🚪 Logout
+    </a>
+
+  </aside>
+
+  <!-- ================= CONTENT ================= -->
+
+  <div class="content">
+
+    <!-- ================= TOP BAR ================= -->
+
+    <div class="top-bar">
+
+      <div>
+
+        <h1>
+          Products
+        </h1>
+
+        <p>
+          Manage your store products
+        </p>
+
+      </div>
+
+      <button
+        class="add-btn"
+        (click)="showAddPopup = true"
+      >
+        + Add Product
+      </button>
+
+    </div>
+
+    <!-- ================= SEARCH BAR ================= -->
+
+    <div class="search-bar">
+
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchText"
+        (input)="searchProducts()"
+      >
+
+    </div>
+
+    <!-- ================= ADD PRODUCT POPUP ================= -->
+
+    <div
+      class="popup-overlay"
+      *ngIf="showAddPopup"
+    >
+
+      <div class="popup">
+
+        <h2>
+          Add Product
+        </h2>
+
+        <input
+          [(ngModel)]="newProduct.name"
+          placeholder="Product Name"
+        >
+
+        <textarea
+          [(ngModel)]="newProduct.description"
+          placeholder="Description"
+        ></textarea>
+
+        <input
+          [(ngModel)]="newProduct.price"
+          type="number"
+          placeholder="Price"
+        >
+
+        <input
+          [(ngModel)]="newProduct.stock_quantity"
+          type="number"
+          placeholder="Stock Quantity"
+        >
+
+        <input
+          [(ngModel)]="newProduct.category"
+          placeholder="Category"
+        >
+
+        <input
+          [(ngModel)]="newProduct.image"
+          placeholder="Image URL"
+        >
+
+        <div class="popup-buttons">
+
+          <button (click)="addProduct()">
+            Save Product
+          </button>
+
+          <button
+            class="cancel"
+            (click)="showAddPopup = false"
+          >
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= EDIT PRODUCT ================= -->
+
+    <div
+      *ngIf="selectedProduct?.id"
+      class="edit-card"
+    >
+
+      <h3>
+        Edit Product
+      </h3>
+
+      <input
+        [(ngModel)]="selectedProduct.name"
+      >
+
+      <textarea
+        [(ngModel)]="selectedProduct.description"
+      ></textarea>
+
+      <input
+        [(ngModel)]="selectedProduct.price"
+        type="number"
+      >
+
+      <input
+        [(ngModel)]="selectedProduct.stock_quantity"
+        type="number"
+      >
+
+      <input
+        [(ngModel)]="selectedProduct.category"
+      >
+
+      <input
+        [(ngModel)]="selectedProduct.image"
+      >
+
+      <button (click)="updateProduct()">
+        💾 Update Product
+      </button>
+
+    </div>
+
+    <!-- ================= TABLE ================= -->
+
+    <div class="table-card">
+
+      <table class="admin-table">
+
+        <thead>
+
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let product of filteredProducts;
+              let i = index
+            "
+          >
+
+            <!-- IMAGE -->
+
+            <td>
+
+              <img
+                [src]="product.image"
+                class="product-img"
+              >
+
+            </td>
+
+            <!-- NAME -->
+
+            <td>
+
+              <div class="product-info">
+
+                <span class="product-name">
+                  {{ product.name }}
+                </span>
+
+                <small>
+                  {{ product.description }}
+                </small>
+
+              </div>
+
+            </td>
+
+            <!-- CATEGORY -->
+
+            <td>
+              {{ product.category }}
+            </td>
+
+            <!-- PRICE -->
+
+            <td>
+              Ksh {{ product.price }}
+            </td>
+
+            <!-- STOCK -->
+
+            <td>
+              {{ product.stock_quantity }}
+            </td>
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="
+                  product.stock_quantity > 0
+                  ? 'active'
+                  : 'out'
+                "
+              >
+
+                {{
+                  product.stock_quantity > 0
+                  ? 'In Stock'
+                  : 'Out of Stock'
+                }}
+
+              </span>
+
+            </td>
+
+            <!-- ACTIONS -->
+
+            <td class="actions">
+
+              <button
+                class="edit-btn"
+                (click)="editProduct(product)"
+              >
+                Edit
+              </button>
+
+              <button
+                class="delete-btn"
+                (click)="onDelete(product)"
+              >
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+          <!-- EMPTY STATE -->
+
+          <tr *ngIf="filteredProducts.length === 0">
+
+            <td
+              colspan="7"
+              class="empty-state"
+            >
+              No products found
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

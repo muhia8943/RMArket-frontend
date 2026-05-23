@@ -1,0 +1,216 @@
+<div class="main">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="admin-sidebar">
+
+    <h2>RMArket Admin</h2>
+
+    <nav>
+
+      <a
+        routerLink="/admin"
+        routerLinkActive="active"
+      >
+        📊 Dashboard
+      </a>
+
+      <a
+        routerLink="/products"
+        routerLinkActive="active"
+      >
+        📦 Products
+      </a>
+
+      <a
+        routerLink="/categories"
+        routerLinkActive="active"
+      >
+        🗂 Categories
+      </a>
+
+      <a
+        routerLink="/orders"
+        routerLinkActive="active"
+      >
+        🧾 Orders
+      </a>
+
+      <a
+        routerLink="/users"
+        routerLinkActive="active"
+      >
+        👥 Users
+      </a>
+
+      <a
+        routerLink="/settings"
+        routerLinkActive="active"
+      >
+        ⚙ Settings
+      </a>
+
+      <a routerLink="/">
+        🚪 Logout
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <!-- ================= MAIN CONTENT ================= -->
+
+  <div class="main-content">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+      <div>
+        <h1>Orders</h1>
+        <p>Manage customer orders</p>
+      </div>
+
+    </div>
+
+    <!-- ================= SEARCH BAR ================= -->
+
+    <div class="search-bar">
+
+      <input
+        type="text"
+        placeholder="Search by order ID or status..."
+        [(ngModel)]="searchText"
+        (input)="searchOrders()"
+      >
+
+    </div>
+
+    <!-- ================= TABLE CARD ================= -->
+
+    <div class="table-card">
+
+      <table class="admin-table">
+
+        <thead>
+
+          <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let order of filteredOrders">
+
+            <!-- ORDER ID -->
+
+            <td>
+              #{{ order.OrderID }}
+            </td>
+
+            <!-- USER -->
+
+            <td>
+              User #{{ order.UserID }}
+            </td>
+
+            <!-- PRODUCT -->
+
+            <td class="product-cell">
+
+              <img
+                [src]="order.image"
+                alt="product"
+                class="product-img"
+              >
+
+              <div class="product-info">
+
+                <span class="product-name">
+                  {{ order.name }}
+                </span>
+
+                <small>
+                  Ksh {{ order.price }}
+                </small>
+
+              </div>
+
+            </td>
+
+            <!-- QUANTITY -->
+
+            <td>
+              {{ order.Quantity }}
+            </td>
+
+            <!-- TOTAL -->
+
+            <td>
+              Ksh {{ order.TotalAmount }}
+            </td>
+
+            <!-- PAYMENT -->
+
+            <td>
+
+              <span class="payment-method">
+                {{ order.PaymentMethod }}
+              </span>
+
+            </td>
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="{
+                  'pending': order.Status === 'PENDING',
+                  'processing': order.Status === 'PROCESSING',
+                  'completed': order.Status === 'COMPLETED',
+                  'cancelled': order.Status === 'CANCELLED'
+                }"
+              >
+                {{ order.Status }}
+              </span>
+
+            </td>
+
+            <!-- DATE -->
+
+            <td>
+              {{ order.CreatedAt | date:'mediumDate' }}
+            </td>
+
+          </tr>
+
+          <!-- EMPTY STATE -->
+
+          <tr *ngIf="filteredOrders.length === 0">
+
+            <td colspan="8" class="empty-state">
+              No matching orders found
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

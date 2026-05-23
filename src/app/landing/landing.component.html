@@ -1,0 +1,126 @@
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+
+    <div>
+        <div class="logo">RMArket</div>
+
+        <div class="sidebar-top">
+            <div class="sidebar-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+
+            <div class="sidebar-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Categories</span>
+            </div>
+
+            <div class="sidebar-item">
+                <i class="fa-solid fa-tags"></i>
+                <span>Deals</span>
+            </div>
+
+            <div routerLink="/cart" class="sidebar-item cart-icon">
+
+  <i class="fa-solid fa-cart-shopping"></i>
+
+  <span>Cart</span>
+
+  <span class="cart-count" *ngIf="cartCount > 0">
+    {{cartCount}}
+  </span>
+
+</div>
+<div class="sidebar-item">
+  <i class="fa-solid fa-list"></i>
+  <span>Orders</span>
+</div>
+        </div>
+    </div>
+
+    <div class="sidebar-bottom">
+        <div class="sidebar-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </div>
+
+        <div class="sidebar-item" (click)="logout()">
+    <i class="fa-solid fa-sign-out-alt"></i>
+    <span>Logout</span>
+</div>
+    </div>
+
+</div>
+
+<div class="main">
+
+    <!-- Fixed Header -->
+    <div class="header">
+        <div class="search-bar">
+            <div class="k">
+                <h1>Featured Products</h1>
+            </div>
+            <div class="m">
+                  <i class="fa fa-search"></i>
+
+<input 
+  type="text" 
+  placeholder="Search products..."
+  [(ngModel)]="searchTerm"
+  (input)="filterItems()"
+>            </div>
+            <div class="s">
+                <i routerLink="/login" class="fa-solid fa-user"></i>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <!-- Scrollable Content -->
+<div class="content">
+
+<div class="section" *ngFor="let category of categories | keyvalue">
+
+  <h2>{{category.key}}</h2>
+
+  <div class="product-row">
+
+    <div class="card" *ngFor="let item of category.value as items">
+
+      <img [src]="item.image">
+
+      <div class="card-content">
+        <h4>{{item.name}}</h4>
+        <span class="price">Ksh {{item.price}}</span>
+      </div>
+
+<div class="b">
+
+  <input
+    type="number"
+    min="1"
+    placeholder="Qty"
+    [(ngModel)]="item.quantity"
+  >
+
+  <button (click)="addToCart(item)">
+    Add to Cart
+  </button>
+
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+</div>
+
+</body>
