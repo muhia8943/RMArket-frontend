@@ -18,7 +18,7 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  api = "http://localhost:3000/api/users";
+  api = "https://rmarket-backend.onrender.com/api/users";
 
   isRegisterMode: boolean = false;
 

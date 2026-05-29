@@ -68,7 +68,7 @@ export class CartComponent implements OnInit {
 
     this.http.get<any[]>(
 
-      `http://localhost:3000/api/orders/cart/${userId}`
+      `https://rmarket-backend.onrender.com/api/orders/cart/${userId}`
 
     ).subscribe({
 
@@ -118,7 +118,7 @@ export class CartComponent implements OnInit {
 
     this.http.put(
 
-      "http://localhost:3000/api/orders/cart",
+      "https://rmarket-backend.onrender.com/api/orders/cart",
 
       payload
 
@@ -169,7 +169,7 @@ export class CartComponent implements OnInit {
 
     this.http.put(
 
-      "http://localhost:3000/api/orders/cart",
+      "https://rmarket-backend.onrender.com/api/orders/cart",
 
       payload
 
@@ -212,7 +212,7 @@ export class CartComponent implements OnInit {
 
     this.http.delete(
 
-      "http://localhost:3000/api/orders/cart",
+      "https://rmarket-backend.onrender.com/api/orders/cart",
 
       {
         body: payload
@@ -282,7 +282,7 @@ export class CartComponent implements OnInit {
 
     this.http.post(
 
-      "http://localhost:3000/api/orders/checkout",
+      "https://rmarket-backend.onrender.com/api/orders/checkout",
 
       {
         userId,

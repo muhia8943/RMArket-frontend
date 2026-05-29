@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LandingComponent implements OnInit {
 
-  api = "http://localhost:3000/api/items";
+  api = "https://rmarket-backend.onrender.com/api/items";
 
   items: any[] = [];
   allItems: any[] = []; // 🔥 backup for search
@@ -111,7 +111,7 @@ export class LandingComponent implements OnInit {
 
     console.log("Sending cart request:", payload);
 
-    this.http.post("http://localhost:3000/api/orders/cart", payload)
+    this.http.post("https://rmarket-backend.onrender.com/api/orders/cart", payload)
     .subscribe({
 
       next: () => {
@@ -138,7 +138,7 @@ export class LandingComponent implements OnInit {
       return;
     }
 
-    this.http.get<any>(`http://localhost:3000/api/orders/cart/${userId}`)
+    this.http.get<any>(`https://rmarket-backend.onrender.com/api/orders/cart/${userId}`)
     .subscribe({
 
       next:(res)=>{

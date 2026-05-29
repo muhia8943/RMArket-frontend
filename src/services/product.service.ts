@@ -16,7 +16,7 @@ export interface Product {
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/api/items';
+  private apiUrl = 'https://rmarket-backend.onrender.com/api/items';
 
   constructor(private http: HttpClient) {}
 

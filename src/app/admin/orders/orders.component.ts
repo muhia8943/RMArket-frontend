@@ -32,7 +32,7 @@ export class OrdersComponent implements OnInit {
   getOrders() {
 
     this.http.get<any[]>(
-      'http://localhost:3000/api/orders/admin/orders'
+      'https://rmarket-backend.onrender.com/api/orders/admin/orders'
     ).subscribe({
 
       next: (res) => {
