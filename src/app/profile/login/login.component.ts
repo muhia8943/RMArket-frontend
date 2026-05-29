@@ -47,37 +47,37 @@ export class LoginComponent {
   }
 
   // ================= LOGIN =================
- login() {
+  login() {
 
-  this.http.post<any>(`${this.api}/login`, this.loginData)
-  .subscribe({
-    next: (res) => {
+    this.http.post<any>(`${this.api}/login`, this.loginData)
+    .subscribe({
+      next: (res) => {
 
-      console.log("LOGIN RESPONSE:", res);
+        console.log("LOGIN RESPONSE:", res);
 
-      localStorage.setItem("userId", String(res.userId));
-      localStorage.setItem("role", res.role);
+        localStorage.setItem("userId", String(res.userId));
+        localStorage.setItem("role", res.role);
 
-      alert("Login successful");
+        alert("Login successful");
 
-      if(res.role === "admin"){
-        this.router.navigate(['/admin']);
+        if (res.role === "admin") {
+          this.router.navigate(['/admin']);
+        }
+
+        if (res.role === "user") {
+          this.router.navigate(['']);
+        }
+
+      },
+      error: () => {
+        alert("Login failed");
       }
+    });
 
-      if(res.role === "user"){
-        this.router.navigate(['']);
-      }
-
-    },
-    error: () => {
-      alert("Login failed");
-    }
-  });
-
-}
+  }
 
   // ================= REGISTER =================
-  register(){
+  register() {
 
     this.http.post(`${this.api}/register`, this.registerData)
     .subscribe({

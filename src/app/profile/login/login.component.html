@@ -1,141 +1,169 @@
-<div class="body">
+<div class="auth-page">
 
-<div class="auth-wrapper" [ngClass]="{ toggled: isRegisterMode }">
+  <div class="auth-card" [ngClass]="{ 'show-register': isRegisterMode }">
 
-    <div class="background-shape"></div>
-    <div class="secondary-shape"></div>
+    <!-- LEFT: Decorative brand panel -->
+    <div class="brand-panel">
+      <div class="brand-panel__inner">
+        <div class="brand-logo">
+          <span class="brand-logo__mark"></span>
+          <span class="brand-logo__name">RMarket</span>
+        </div>
+        <div class="brand-copy">
+          <p class="brand-copy__tagline" [class.hidden]="isRegisterMode">
+            Welcome<br>back.
+          </p>
+          <p class="brand-copy__tagline" [class.hidden]="!isRegisterMode">
+            Join<br>us today.
+          </p>
+          <p class="brand-copy__sub" [class.hidden]="isRegisterMode">
+            Sign in to continue to your account.
+          </p>
+          <p class="brand-copy__sub" [class.hidden]="!isRegisterMode">
+            Create an account to get started.
+          </p>
+        </div>
+        <div class="brand-deco">
+          <span class="deco-ring deco-ring--1"></span>
+          <span class="deco-ring deco-ring--2"></span>
+          <span class="deco-ring deco-ring--3"></span>
+        </div>
+      </div>
+    </div>
 
-    <!-- LOGIN PANEL -->
-    <div class="credentials-panel signin">
+    <!-- RIGHT: Forms -->
+    <div class="forms-panel">
 
-        <h2 class="slide-element">Login</h2>
+      <!-- LOGIN FORM -->
+      <div class="form-view form-view--login" [class.form-view--active]="!isRegisterMode">
+        <div class="form-view__inner">
+          <p class="form-eyebrow">Sign In</p>
+          <h1 class="form-heading">Good to see you.</h1>
 
-        <form (ngSubmit)="login()">
+          <form (ngSubmit)="login()" autocomplete="off">
 
-            <div class="field-wrapper slide-element">
+            <div class="field">
+              <label class="field__label" for="login-email">Email address</label>
+              <input
+                class="field__input"
+                id="login-email"
+                type="email"
+                required
+                name="email"
+                placeholder="you@example.com"
+                [(ngModel)]="loginData.email"
+              />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="login-password">Password</label>
+              <input
+                class="field__input"
+                id="login-password"
+                type="password"
+                required
+                name="password"
+                placeholder="••••••••"
+                [(ngModel)]="loginData.password"
+              />
+            </div>
+
+            <button class="btn-primary" type="submit">
+              <span>Sign in</span>
+              <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+          </form>
+
+          <p class="form-switch">
+            New to RMarket?
+            <a href="#" (click)="switchToRegister($event)">Create an account</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="form-view form-view--register" [class.form-view--active]="isRegisterMode">
+        <div class="form-view__inner">
+          <p class="form-eyebrow">Sign Up</p>
+          <h1 class="form-heading">Let's get started.</h1>
+
+          <form (ngSubmit)="register()" autocomplete="off">
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field__label" for="reg-username">Username</label>
                 <input
-                    type="email"
-                    required
-                    name="email"
-                    [(ngModel)]="loginData.email"
-                >
-                <label>Email</label>
-                <i class="fa-solid fa-user"></i>
-            </div>
+                  class="field__input"
+                  id="reg-username"
+                  type="text"
+                  required
+                  name="username"
+                  placeholder="johndoe"
+                  [(ngModel)]="registerData.username"
+                />
+              </div>
 
-            <div class="field-wrapper slide-element">
+              <div class="field">
+                <label class="field__label" for="reg-phone">Phone number</label>
                 <input
-                    type="password"
-                    required
-                    name="password"
-                    [(ngModel)]="loginData.password"
-                >
-                <label>Password</label>
-                <i class="fa-solid fa-lock"></i>
+                  class="field__input"
+                  id="reg-phone"
+                  type="text"
+                  required
+                  name="phonenumber"
+                  placeholder="+1 555 000 0000"
+                  [(ngModel)]="registerData.phonenumber"
+                />
+              </div>
             </div>
 
-            <div class="field-wrapper slide-element">
-                <button class="submit-button" type="submit">
-                    Login
-                </button>
+            <div class="field">
+              <label class="field__label" for="reg-email">Email address</label>
+              <input
+                class="field__input"
+                id="reg-email"
+                type="email"
+                required
+                name="email"
+                placeholder="you@example.com"
+                [(ngModel)]="registerData.email"
+              />
             </div>
 
-            <div class="switch-link slide-element">
-                <p>
-                    Don't have an account?<br>
-                    <a href="#" (click)="switchToRegister($event)">
-                        Sign Up
-                    </a>
-                </p>
+            <div class="field">
+              <label class="field__label" for="reg-password">Password</label>
+              <input
+                class="field__input"
+                id="reg-password"
+                type="password"
+                required
+                name="password"
+                placeholder="Choose a strong password"
+                [(ngModel)]="registerData.password"
+              />
             </div>
 
-        </form>
+            <button class="btn-primary" type="submit">
+              <span>Create account</span>
+              <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+          </form>
+
+          <p class="form-switch">
+            Already have an account?
+            <a href="#" (click)="switchToLogin($event)">Sign in</a>
+          </p>
+        </div>
+      </div>
 
     </div>
 
-
-    <!-- LOGIN WELCOME -->
-    <div class="welcome-section signin">
-        <h2 class="slide-element">WELCOME BACK!</h2>
-    </div>
-
-
-    <!-- REGISTER PANEL -->
-    <div class="credentials-panel signup">
-
-        <h2 class="slide-element">Register</h2>
-
-        <form (ngSubmit)="register()">
-
-            <div class="field-wrapper slide-element">
-                <input
-                    type="text"
-                    required
-                    name="username"
-                    [(ngModel)]="registerData.username"
-                >
-                <label>Username</label>
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <div class="field-wrapper slide-element">
-                <input
-                    type="email"
-                    required
-                    name="email"
-                    [(ngModel)]="registerData.email"
-                >
-                <label>Email</label>
-                <i class="fa-solid fa-envelope"></i>
-            </div>
-
-            <div class="field-wrapper slide-element">
-                <input
-                    type="password"
-                    required
-                    name="password"
-                    [(ngModel)]="registerData.password"
-                >
-                <label>Password</label>
-                <i class="fa-solid fa-lock"></i>
-            </div>
-
-            <div class="field-wrapper slide-element">
-                <input
-                    type="text"
-                    required
-                    name="phonenumber"
-                    [(ngModel)]="registerData.phonenumber"
-                >
-                <label>Phone Number</label>
-                <i class="fa-solid fa-phone"></i>
-            </div>
-
-            <div class="field-wrapper slide-element">
-                <button class="submit-button" type="submit">
-                    Register
-                </button>
-            </div>
-
-            <div class="switch-link slide-element">
-                <p>
-                    Already have an account?<br>
-                    <a href="#" (click)="switchToLogin($event)">
-                        Sign In
-                    </a>
-                </p>
-            </div>
-
-        </form>
-
-    </div>
-
-
-    <!-- REGISTER WELCOME -->
-    <div class="welcome-section signup">
-        <h2 class="slide-element">WELCOME!</h2>
-    </div>
-
-</div>
+  </div>
 
 </div>
